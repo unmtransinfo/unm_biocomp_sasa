@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://DefaultNamespace" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://DefaultNamespace" xmlns:intf="http://DefaultNamespace" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema targetNamespace="http://DefaultNamespace" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="getAlogpsResults" type="xsd:anyType"/>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getAlogpsResultsResponse">
+
+      <wsdl:part name="getAlogpsResultsReturn" type="xsd:anyType"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAlogpsResultsRequest">
+
+      <wsdl:part element="impl:getAlogpsResults" name="part"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="VccAlogpsService">
+
+      <wsdl:operation name="getAlogpsResults">
+
+         <wsdl:input message="impl:getAlogpsResultsRequest" name="getAlogpsResultsRequest"/>
+
+         <wsdl:output message="impl:getAlogpsResultsResponse" name="getAlogpsResultsResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ALOGPSSoapBinding" type="impl:VccAlogpsService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getAlogpsResults">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAlogpsResultsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAlogpsResultsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="VccAlogpsServiceService">
+
+      <wsdl:port binding="impl:ALOGPSSoapBinding" name="ALOGPS">
+
+         <wsdlsoap:address location="http://www.vcclab.org/web/services/ALOGPS"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
