@@ -22,8 +22,8 @@ import chemaxon.formats.MolExporter;
 import chemaxon.formats.MolFormatException;
 import chemaxon.formats.MolImporter;
 import chemaxon.marvin.io.MolExportException;
-import chemaxon.reaction.Standardizer;
-import chemaxon.reaction.StandardizerException;
+//import chemaxon.reaction.Standardizer;
+//import chemaxon.reaction.StandardizerException;
 import chemaxon.sss.SearchConstants;
 import chemaxon.sss.search.MolSearchOptions;
 import chemaxon.sss.search.SearchException;
@@ -136,9 +136,10 @@ public class IsDrug {
 			 MolSearchOptions mso = new MolSearchOptions(SearchConstants.DUPLICATE);
 			 mso.setStereoSearchType(SearchConstants.STEREO_IGNORE);
 			 StandardizedMolSearch ms = new StandardizedMolSearch();
-			 Standardizer std = new Standardizer(this.getClass().getResourceAsStream("/standardizer.xml"));
+			 chemaxon.standardizer.Standardizer std = new chemaxon.standardizer.Standardizer(this.getClass().getResourceAsStream("/standardizer.xml"));
 			 ms.setSearchOptions(mso);
-			 ms.setStandardizer(std, true, true);
+			 //ms.setStandardizer(std, true, true);
+			 ms.setStandardizer(std);
 			 Molecule mol;
 			 boolean match;
 			 Set<String> names = readDrugNames();
@@ -183,7 +184,7 @@ public class IsDrug {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			logger.error(e.getMessage());
-		} catch (StandardizerException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			logger.error(e.getLocalizedMessage());
 		} finally {

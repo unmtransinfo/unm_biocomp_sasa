@@ -1,6 +1,0 @@
-#Tue May 14 00:03:37 MDT 2013
-jdbcUser=wombat
-jdbcPassword=bnm5rty
-jdbcUrl=jdbc\:oracle\:thin\:@localhost\:1521\:chromdb
-
-
