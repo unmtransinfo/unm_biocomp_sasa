@@ -4,6 +4,11 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import chemaxon.formats.MolImporter;
+import chemaxon.struc.Molecule;
+import chemaxon.struc.MoleculeGraph;
+
+
 /**
  * Unit test for simple App.
  */
@@ -29,10 +34,31 @@ public class AppTest
     }
 
     /**
-     * Rigourous Test :-)
+     * Rigourous Tests :-)
      */
-    public void testApp()
+    private static final String testsmi = "NCCc1ccc(O)c(O)c1";
+    public void testComplexity() throws Exception
     {
-        assertTrue( true );
+	Molecule mol = MolImporter.importMol(testsmi, "smiles");
+	mol.aromatize(MoleculeGraph.AROM_GENERAL);
+	double cmplx = Complexity.complexity(mol);
+        assertTrue( cmplx > 0.0 );
+    }
+    public void testABE() throws Exception
+    {
+	Molecule mol = MolImporter.importMol(testsmi, "smiles");
+	mol.aromatize(MoleculeGraph.AROM_GENERAL);
+	double abe = ABE.calcABE(mol);
+        assertTrue( abe > 0.0 );
+    }
+    public void testPSA() throws Exception
+    {
+	Molecule mol = MolImporter.importMol(testsmi, "smiles");
+	mol.aromatize(MoleculeGraph.AROM_GENERAL);
+	double[] psa = new double[2];
+	PSA.getPSA(mol, psa);
+        double sfa_perc_pol=psa[0]/(psa[0]+psa[1])*100.0;
+        double sfa_perc_nonpol=psa[1]/(psa[0]+psa[1])*100.0;
+        assertTrue( (sfa_perc_pol>0.0) && (sfa_perc_nonpol>0.0) );
     }
 }
