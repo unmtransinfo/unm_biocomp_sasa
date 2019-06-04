@@ -38,19 +38,6 @@
       <url>http://www.ebi.ac.uk/intact/maven/nexus/content/repositories/ebi-repo/</url>
     </repository>
 
-    <!-- https://docs.oracle.com/middleware/1213/core/MAVEN/config_maven_repo.htm -->
-    <repository>
-      <id>maven.oracle.com</id>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <url>https://maven.oracle.com</url>
-      <layout>default</layout>
-    </repository>
-
     <repository> <!-- https://www.oracle.com/technetwork/database/database-technologies/berkeleydb/downloads/maven-087630.html -->
       <id>oracleReleases</id>
       <name>Oracle Released Java Packages</name>
@@ -61,12 +48,6 @@
   </repositories>
 
   <dependencies>
-    <dependency>
-      <groupId>oracle.jdbc</groupId>
-      <artifactId>ojdbc6</artifactId>
-      <version>11.2.0.4.0</version>
-    </dependency>
-
     <dependency>
       <groupId>com.chemaxon</groupId>
       <artifactId>jchem-main</artifactId>

@@ -12,7 +12,6 @@ Developed by Oleg Ursu.
 * Maven 3.5+
 * ChemAxon JChem (14.7.7.0 ok, formerly 6.2.3).
 * ChemAxon Maven Repository (requires registration and credentials).
-* Oracle Maven Repository (requires registration and credentials).
 
 ## Maven configuration:
 
