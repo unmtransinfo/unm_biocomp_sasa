@@ -57,7 +57,7 @@ public class SaSARunner {
 		opt.addOption(OptionBuilder.withLongOpt("output-file")
 				.isRequired()
 				.hasArg()
-				.withArgName("Use specified file to write descriptors")
+				.withArgName("Use specified file to write descriptors (TSV)")
 				.create("o"));
 		opt.addOption(OptionBuilder.withLongOpt("identifier")
 				.hasArg()
@@ -184,7 +184,7 @@ public class SaSARunner {
 				logp.run();
 				double logPValue = logp.getlogPTrue();
 				if(Double.compare(logPValue, Double.NaN) != 0) {
-					mol.setProperty("logP", Double.toString(logPValue));
+					mol.setProperty("logP", String.format("%.3f", logPValue));
 				}
 				writer.write(mol);
 				if(verbose) {
@@ -247,7 +247,7 @@ public class SaSARunner {
 		Molecule mol = smol.cloneMolecule();
 		mol.aromatize(MoleculeGraph.AROM_GENERAL);
 		Hydrogenize.removeHAtoms(mol);
-		smol.setProperty("MOL_WEIGHT", Double.toString(mol.getMass()));
+		smol.setProperty("MOL_WEIGHT", String.format("%.3f", mol.getMass()));
 		smol.setProperty("NO_ATOMS", Integer.toString(mol.getAtomCount()));
 		smol.setProperty("NO_BONDS", Integer.toString(mol.getBondCount()));
 		Rings.setMolecule(mol);
@@ -266,14 +266,14 @@ public class SaSARunner {
 		smol.setProperty("LPK_HB_ACC", Integer.toString(HBonds.getAcceptors(mol)));
 		Hydrogenize.addHAtoms(mol);
 		PSA.getPSA(mol, psa);
-		smol.setProperty("SFA_POL", Double.toString(psa[0]));
-		smol.setProperty("SFA_NONPOL", Double.toString(psa[1]));
-		smol.setProperty("SFA_PERC_POL", Double.toString(psa[0]/(psa[0] + psa[1])));
-		smol.setProperty("SFA_PERC_NONPOL", Double.toString(psa[1]/(psa[0] + psa[1])));
-		smol.setProperty("VDW_VOLUME", Double.toString(VABC.calculate(mol)));
+		smol.setProperty("SFA_POL", String.format("%.3f", psa[0]));
+		smol.setProperty("SFA_NONPOL", String.format("%.3f", psa[1]));
+		smol.setProperty("SFA_PERC_POL", String.format("%.3f", psa[0]/(psa[0] + psa[1])));
+		smol.setProperty("SFA_PERC_NONPOL", String.format("%.3f", psa[1]/(psa[0] + psa[1])));
+		smol.setProperty("VDW_VOLUME", String.format("%.3f", VABC.calculate(mol)));
 		Hydrogenize.removeHAtoms(mol);
-		smol.setProperty("MOL_ABE", Double.toString(ABE.calcABE(mol)));
-		smol.setProperty("MOL_SMCM", Double.toString(Complexity.complexity(mol)));
+		smol.setProperty("MOL_ABE", String.format("%.3f", ABE.calcABE(mol)));
+		smol.setProperty("MOL_SMCM", String.format("%.3f", Complexity.complexity(mol)));
 		smol.setProperty("NO_ALIPHATIC_RINGS", Integer.toString((Rings.aliphaticRings() != null ? Rings.aliphaticRings().length : 0)));
 		smol.setProperty("NO_AROMATIC_RINGS", Integer.toString((Rings.aromaticRings() != null ? Rings.aromaticRings().length : 0)));
 		smol.setProperty("NO_HETEROALIPHATIC_RINGS", Integer.toString((Rings.heteroAliphaticRings() != null ? Rings.heteroAliphaticRings().length : 0)));
@@ -288,8 +288,8 @@ public class SaSARunner {
 				System.err.println("VCC can't calculate properties for: " + MolExporter.exportToFormat(mol, "smiles"));
 			}
 			if(vccSuccess) {
-				smol.setProperty("ALOGP", Double.toString(vccLab.getLogP()));
-				smol.setProperty("ALOGS", Double.toString(vccLab.getLogS()));
+				smol.setProperty("ALOGP", String.format("%.3f", vccLab.getLogP()));
+				smol.setProperty("ALOGS", String.format("%.3f", vccLab.getLogS()));
 			}
 		}
 	}
